@@ -38,7 +38,7 @@ There are two endpoints:
 
 `:attribute` is replaced with the name of the LDAP attribute.
 
-### Endpoints xxample
+### Endpoints example
 * `http://localhost:3000/cn/duplicates`
 * `http://localhost:3000/mail/duplicates`
 * `http://localhost:3000/noredupersonnin/duplicates`
