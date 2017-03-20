@@ -21,7 +21,7 @@ version: "3"
 
 services:
   idv-dup-nin:
-    image: rogfk/idv-dups-checker:{version you want to use}
+    image: rogfk/idv-dups-checker:tag
     ports:
       - "3000:3000"
     environment:
@@ -33,15 +33,15 @@ services:
 ## Endpoints
 There are two endpoints:
 
-`http://localhost:3000/:attribute/duplicates`
+* `http://localhost:3000/:attribute/duplicates`
 `http://localhost:3000/:attribute/duplicates/count`
 
 `:attribute` is replaced with the name of the LDAP attribute.
 
 ### Endpoints xxample
-`http://localhost:3000/cn/duplicates`
-`http://localhost:3000/mail/duplicates`
-`http://localhost:3000/noredupersonnin/duplicates`
+* `http://localhost:3000/cn/duplicates`
+* `http://localhost:3000/mail/duplicates`
+* `http://localhost:3000/noredupersonnin/duplicates`
 
 ## Environment settings
 | Key   | Description                       | Example                   |
