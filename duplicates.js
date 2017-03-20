@@ -4,7 +4,7 @@ var ldap = require('ldapjs');
 var assert = require('assert');
 var _ = require('lodash');
 
-var getDuplicates = function(callback) {
+var getDuplicates = function(attribute, callback) {
     var client = ldap.createClient({
         url: process.env.LDAP_HOST
     });
@@ -15,7 +15,7 @@ var getDuplicates = function(callback) {
         var opts = {
             filter: '(objectclass=user)',
             scope: 'sub',
-            attributes: ['norEduPersonNIN', 'givenName', 'sn', 'cn', 'mail']
+            attributes: [attribute, 'givenName', 'sn', 'cn', 'mail']
         };
 
         client.search(process.env.LDAP_BASE, opts, function(err, res) {
@@ -27,24 +27,42 @@ var getDuplicates = function(callback) {
             });
 
             res.on('end', function() {
-                //_(users).groupBy('norEduPersonNIN').count();
-                var keys = _(users).groupBy('norEduPersonNIN').pickBy(count => count.length > 1).keys().value();
-                var values = [];
-                keys.forEach(key => {
-                    var filteredUsers = _(users).filter({
-                        'norEduPersonNIN': key
-                    }).values();
+                var keys = _(users).pickBy(function(user) {
+                    if (user[attribute]) return user[attribute];
+                }).groupBy(function(user) {
+                    if (Array.isArray(user[attribute])) {
+                        return user[attribute][0].toLowerCase();
+                    } else {
+                        return user[attribute].toLowerCase();
+                    }
 
-                    var value = {
-                        fodselsnummer: key,
-                        users: filteredUsers
-                    };
-                    values.push(value);
+                }).pickBy(count => count.length > 1).keys().value();
+                var values = [];
+                var filter = {};
+
+                keys.forEach(key => {
+                    if (key !== "undefined") {
+                        var filteredUsers = _(users).pickBy(function(user) {
+                            if (user[attribute]) return user[attribute];
+                        }).filter(function(user) {
+                            if (Array.isArray(user[attribute])) {
+                                return user[attribute][0].toLowerCase() === key.toLowerCase();
+                            } else {
+                                return user[attribute].toLowerCase() === key.toLowerCase();
+                            }
+                        }).values();
+
+                        var value = {};
+                        value[attribute] = key;
+                        value.users = filteredUsers;
+
+                        values.push(value);
+                    }
                 });
 
                 client.destroy();
                 var duplicates = {
-                    dupscount: (keys.length - 1),
+                    dupscount: values.length,
                     duplicates: values
                 };
                 callback(duplicates);
@@ -57,7 +75,7 @@ var getDuplicates = function(callback) {
     });
 }
 
-var getDuplicatesCount = function(callback) {
+var getDuplicatesCount = function(attribute, callback) {
     var client = ldap.createClient({
         url: process.env.LDAP_HOST
     });
@@ -68,7 +86,7 @@ var getDuplicatesCount = function(callback) {
         var opts = {
             filter: '(objectclass=user)',
             scope: 'sub',
-            attributes: ['norEduPersonNIN']
+            attributes: [attribute]
         };
 
         client.search(process.env.LDAP_BASE, opts, function(err, res) {
@@ -80,11 +98,18 @@ var getDuplicatesCount = function(callback) {
             });
 
             res.on('end', function() {
-                var keys = _(users).groupBy('norEduPersonNIN').pickBy(count => count.length > 1).keys().value();
-
+                var keys = _(users).pickBy(function(user) {
+                    if (user[attribute]) return user[attribute];
+                }).groupBy(function(user) {
+                    if (Array.isArray(user[attribute])) {
+                        return user[attribute][0].toLowerCase();
+                    } else {
+                        return user[attribute].toLowerCase();
+                    }
+                }).pickBy(count => count.length > 1).keys().value();
                 client.destroy();
                 var duplicates = {
-                    dupscount: (keys.length - 1)
+                    dupscount: keys.length
                 };
                 callback(duplicates);
             });

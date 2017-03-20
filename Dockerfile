@@ -15,7 +15,6 @@ WORKDIR "/src"
 # Install dependencies
 RUN npm install --production
 
-# Expose 8000
 EXPOSE 3000
 
 # Startup

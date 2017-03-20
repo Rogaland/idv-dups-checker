@@ -3,15 +3,16 @@ var duplicates = require('./duplicates');
 var express = require('express');
 var app = express();
 
-app.get('/nin/duplicates', function(request, response) {
-    duplicates.getDuplicates(function(duplicates) {
+
+app.get('/:attrib/duplicates', function(request, response) {
+    duplicates.getDuplicates(request.params.attrib, function(duplicates) {
         response.send(JSON.stringify(duplicates));
     });
 
 });
 
-app.get('/nin/duplicates/count', function(request, response) {
-    duplicates.getDuplicatesCount(function(duplicates) {
+app.get('/:attrib/duplicates/count', function(request, response) {
+    duplicates.getDuplicatesCount(request.params.attrib, function(duplicates) {
         response.send(JSON.stringify(duplicates));
     });
 
