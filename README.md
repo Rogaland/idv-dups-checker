@@ -5,14 +5,14 @@ This is a Node application that checks for duplicate attribute values on entries
 
 ### Local computer
 Run it on your computer:
-* Download the code either with git or the zip file.
-* Run the following commands:
+1. Download the code either with git or the zip file.
+2. Run the following commands:
 ```bash
 npm install
 npm start
 ```
-* Open a browser `http://localhost:3000/:attribute/duplicates to get a list of the duplicates
-* Open a browser `http://localhost:3000/:attribute/duplicates/count to get the count
+3. Open a browser `http://localhost:3000/:attribute/duplicates to get a list of the duplicates
+4. Open a browser `http://localhost:3000/:attribute/duplicates/count to get the count
 
 ### Docker
 User the following docker-compose file and run `docker-compose up`
