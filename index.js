@@ -1,4 +1,4 @@
-var duplicates = require('./duplicates');
+var duplicates = require('./lib/duplicates');
 var express = require('express');
 var app = express();
 
