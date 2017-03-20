@@ -1,8 +1,8 @@
 var duplicates = require('./duplicates');
-
 var express = require('express');
 var app = express();
 
+const port = 3000;
 
 app.get('/:attrib/duplicates', function(request, response) {
     duplicates.getDuplicates(request.params.attrib, function(duplicates) {
@@ -18,6 +18,6 @@ app.get('/:attrib/duplicates/count', function(request, response) {
 
 });
 
-app.listen(3000, function() {
-    console.log('Started on port 3000');
+app.listen(port, function() {
+    console.log('Started on port ' + port);
 });
