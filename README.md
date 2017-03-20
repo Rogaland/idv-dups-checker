@@ -34,7 +34,7 @@ services:
 There are two endpoints:
 
 * `http://localhost:3000/:attribute/duplicates`
-`http://localhost:3000/:attribute/duplicates/count`
+* `http://localhost:3000/:attribute/duplicates/count`
 
 `:attribute` is replaced with the name of the LDAP attribute.
 
