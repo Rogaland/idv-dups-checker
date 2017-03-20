@@ -11,6 +11,7 @@ Run it on your computer:
 2. Run the following commands:
 ```bash
 npm install
+export LDAP_HOST=ldap://ldap.domain.no:389 LDAP_BIND_PWD=topsecret LDAP_BIND_DN=cn=admin,o=org LDAP_BASE=o=people
 npm start
 ```
 3. Open a browser `http://localhost:3000/:attribute/duplicates to get a list of the duplicates
