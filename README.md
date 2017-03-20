@@ -1,4 +1,6 @@
 # Identity Value Duplicates Checker
+[![Docker Automated buil](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/rogfk/idv-dups-checker/)
+
 This is a Node application that checks for duplicate attribute values on entries in a LDAP catalog.
 
 ## Install
