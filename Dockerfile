@@ -13,7 +13,7 @@ COPY . /src
 WORKDIR "/src"
 
 # Install dependencies
-RUN npm install --production
+RUN npm install --production && npm run build
 
 EXPOSE 3000
 

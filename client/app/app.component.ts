@@ -25,7 +25,7 @@ export class AppComponent {
       evt.stopPropagation();
     }
     this.isLoading = true;
-    this.http.get(`/${this.attrib}/duplicates`)
+    this.http.get(`/api/${this.attrib}/duplicates`)
       .map(result => result.json())
       .catch(error => {console.error(error); return error; })
       .subscribe((result: any) => {

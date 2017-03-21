@@ -4,7 +4,7 @@ var app = express();
 
 const port = 3000;
 
-app.get('/:attrib/duplicates', function(request, response) {
+app.get('/api/:attrib/duplicates', function(request, response) {
     try {
         duplicates.getDuplicates(request.params.attrib, function(duplicates) {
             response.send(JSON.stringify(duplicates));
@@ -14,7 +14,7 @@ app.get('/:attrib/duplicates', function(request, response) {
     }
 });
 
-app.get('/:attrib/duplicates/count', function(request, response) {
+app.get('/api/:attrib/duplicates/count', function(request, response) {
     try {
         duplicates.getDuplicatesCount(request.params.attrib, function(duplicates) {
             response.send(JSON.stringify(duplicates));
