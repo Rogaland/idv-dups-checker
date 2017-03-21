@@ -5,18 +5,26 @@ var app = express();
 const port = 3000;
 
 app.get('/:attrib/duplicates', function(request, response) {
-    duplicates.getDuplicates(request.params.attrib, function(duplicates) {
-        response.send(JSON.stringify(duplicates));
-    });
-
+    try {
+        duplicates.getDuplicates(request.params.attrib, function(duplicates) {
+            response.send(JSON.stringify(duplicates));
+        });
+    } catch (ex) {
+        response.status(500).send(JSON.stringify(ex));
+    }
 });
 
 app.get('/:attrib/duplicates/count', function(request, response) {
-    duplicates.getDuplicatesCount(request.params.attrib, function(duplicates) {
-        response.send(JSON.stringify(duplicates));
-    });
-
+    try {
+        duplicates.getDuplicatesCount(request.params.attrib, function(duplicates) {
+            response.send(JSON.stringify(duplicates));
+        });
+    } catch (ex) {
+        response.status(500).send(JSON.stringify(ex));
+    }
 });
+
+app.use(express.static('dist'));
 
 app.listen(port, function() {
     console.log('Started on port ' + port);

@@ -1,0 +1,45 @@
+<h1>
+  Get duplicates
+</h1>
+
+<section>
+  <form name="searchForm" (submit)="getDuplicates($event)">
+    <div class="input-group">
+      <input type="text" name="searchAttrib" class="form-control" [(ngModel)]="attrib" placeholder="Search for..." autocomplete="off" autofocus="on"/>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Go!</button>
+      </span>
+    </div>
+  </form>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>CN</th>
+        <th>DN</th>
+        <th>Mail</th>
+        <th>SN</th>
+        <th>Given Name</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="isLoading">
+      <tr>
+        <td colspan="5">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngFor="let dup of duplicates">
+      <tr *ngFor="let user of dup.users">
+        <td>{{dup.cn}}</td>
+        <td>{{user.dn}}</td>
+        <td>{{user.mail}}</td>
+        <td>{{user.sn}}</td>
+        <td>{{user.givenName}}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
