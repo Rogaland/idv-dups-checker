@@ -9,13 +9,15 @@ This is a Node application that checks for duplicate attribute values on entries
 Run it on your computer:
 1. Download the code either with git or the zip file.
 2. Run the following commands:
-```bash
-npm install
-export LDAP_HOST=ldap://ldap.domain.no:389 LDAP_BIND_PWD=topsecret LDAP_BIND_DN=cn=admin,o=org LDAP_BASE=o=people
-npm start
+```shell
+$ npm install
+$ npm run build
+$ export LDAP_HOST=ldap://ldap.domain.no:389 LDAP_BIND_PWD=topsecret LDAP_BIND_DN=cn=admin,o=org LDAP_BASE=o=people
+$ npm start
 ```
 3. Open a browser `http://localhost:3000/:attribute/duplicates to get a list of the duplicates
-4. Open a browser `http://localhost:3000/:attribute/duplicates/count to get the count
+4. Open a browser `http://localhost:3000/api/duplicates/count/:attribute to get the count
+5. Open a browser `http://localhost:3000/ to get a web UI
 
 ### Docker
 User the following docker-compose file and run `docker-compose up`
@@ -23,7 +25,7 @@ User the following docker-compose file and run `docker-compose up`
 version: "3"
 
 services:
-  idv-dup-nin:
+  idv-dups-checker:
     image: rogfk/idv-dups-checker:tag
     ports:
       - "3000:3000"
@@ -36,15 +38,15 @@ services:
 ## Endpoints
 There are two endpoints:
 
-* `http://localhost:3000/:attribute/duplicates`
-* `http://localhost:3000/:attribute/duplicates/count`
+* `/:attribute/duplicates`
+* `/api/duplicates/count/:attribute`
 
 `:attribute` is replaced with the name of the LDAP attribute.
 
 ### Endpoints example
-* `http://localhost:3000/cn/duplicates`
-* `http://localhost:3000/mail/duplicates`
-* `http://localhost:3000/noredupersonnin/duplicates`
+* `/cn/duplicates`
+* `/mail/duplicates`
+* `/noredupersonnin/duplicates`
 
 ## Environment settings
 | Key   | Description                       | Example                   |
