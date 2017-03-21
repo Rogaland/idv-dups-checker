@@ -14,7 +14,7 @@ app.get('/api/:attrib/duplicates', function(request, response) {
     }
 });
 
-app.get('/api/:attrib/duplicates/count', function(request, response) {
+app.get('/api/duplicates/count/:attrib', function(request, response) {
     try {
         duplicates.getDuplicatesCount(request.params.attrib, function(duplicates) {
             response.send(JSON.stringify(duplicates));
